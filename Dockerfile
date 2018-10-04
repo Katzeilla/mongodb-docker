@@ -1,4 +1,4 @@
-FROM mongo:3.6.3-jessie
+FROM mongo:latest
  
 ENV AUTH yes
 ENV STORAGE_ENGINE wiredTiger
