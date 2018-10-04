@@ -28,7 +28,10 @@ if [[ "$APPLICATION_PASSWORD" == "" ]]; then
 fi
 
 # Wait for mongod to boot
+
+
 Mongod_status=1
+
 while [[ $Mongod_status -ne 0 ]]; do
 	      echo "==>  Wait for mongod to boot..."
               sleep 5
@@ -45,8 +48,8 @@ sleep 3
 # Create the application user
 echo "=> Creating an $APPLICATION_DATABASE user with a password in MongoDB"
 mongo admin -u "$ADMIN_USERNAME" -p "$ADMIN_PASSWORD" << EOF
-use "$APPLICATION_DATABASE"
-db.createUser({user: '"$APPLICATION_USERNAME"', pwd: '"$APPLICATION_PASSWORD"', roles:[{role:'readWrite', db:'"$APPLICATION_DATABASE"'}]})
+use $APPLICATION_DATABASE
+db.createUser({user: '$APPLICATION_USERNAME', pwd: '$APPLICATION_PASSWORD', roles:[{role:'readWrite', db:'$APPLICATION_DATABASE'}]})
 EOF
 
 sleep 1
