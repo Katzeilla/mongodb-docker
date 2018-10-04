@@ -60,9 +60,3 @@ docker run -it \
   "$flag" \
   mongodb:latest
 
-if [[ $? == 125 ]];
-    then
-    echo "$date" "Another mongodb already start, stop it......"
-    stop_mongodb
-    ./main.sh "$1"
-fi
