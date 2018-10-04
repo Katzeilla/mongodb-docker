@@ -29,7 +29,7 @@ fi
 
 # Wait for mongod to boot
 Mongod_status=1
-while [[ RET -ne 0 ]]; do
+while [[ $Mongod_status -ne 0 ]]; do
 	      echo "==>  Wait for mongod to boot..."
               sleep 5
 	      mongo admin --eval "help" >/dev/null 2>&1
