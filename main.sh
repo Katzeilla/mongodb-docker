@@ -1,6 +1,6 @@
 #! /bin/bash
 
-dir=$(pwd)
+dir="$(pwd)"
 
 date="[$(date)]"
 
@@ -27,42 +27,42 @@ show_usage()
         echo "If no [ACTION], start normally"
 }
 
-if [[ $1 == network ]]; then
-    if [[ $2 != "" ]]; then
+if [[ "$1" == network ]]; then
+    if [[ "$2" != "" ]]; then
         flag="--network $2"
-        echo Connect to $2
+        echo Connect to "$2"
     fi
 
 
-elif [[ $1 == debug ]]; then
+elif [[ "$1" == debug ]]; then
         flag='--entrypoint /bin/bash'
-		echo $date 'Debug Mode'
+		echo "$date" 'Debug Mode'
 
-elif [[ $1 == build ]]; then
-        echo $date Start build mongodb
+elif [[ "$1" == build ]]; then
+        echo "$date" Start build mongodb
         docker build . --tag mongodb:latest
 	exit
 
-elif [[ $1 == shell ]]; then
-        echo $date Attach bash in mongodb
+elif [[ "$1" == shell ]]; then
+        echo "$date" Attach bash in mongodb
  	docker exec -it mongodb bash
         exit
 
-elif [[ $1 == --help ]] || [[ $1 == -h ]] || [[ $1 == help ]]; then
+elif [[ "$1" == --help ]] || [[ "$1" == -h ]] || [[ "$1" == help ]]; then
         show_usage
         exit
 fi
 
 
 docker run -it \
-  --mount type=bind,source=$dir/data/db,target=/data/db/ \
+  --mount type=bind,source="$dir"/data/db,target=/data/db/ \
   --name mongodb \
-  $flag \
+  "$flag" \
   mongodb:latest
 
 if [[ $? == 125 ]];
     then
-    echo $date "Another mongodb already start, stop it......"
+    echo "$date" "Another mongodb already start, stop it......"
     stop_mongodb
-    ./main.sh $1
+    ./main.sh "$1"
 fi
