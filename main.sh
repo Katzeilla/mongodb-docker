@@ -57,6 +57,6 @@ fi
 docker run -it \
   --mount type=bind,source="$dir"/data/db,target=/data/db/ \
   --name mongodb \
-  "$flag" \
+  $flag \
   mongodb:latest
 
