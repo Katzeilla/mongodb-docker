@@ -53,7 +53,8 @@ elif [[ "$1" == clean ]]; then
         echo "$date" WARNING!! This will delete all database! 
 	docker stop mongodb
         docker rm mongodb
-	sudo rm -r ./data/db/*
+	sudo rm -r ./data/db
+	mkdir ./data/db/
 	touch ./data/db/.dirkeeper
 	echo Done!
         exit
