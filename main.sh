@@ -54,7 +54,7 @@ elif [[ "$1" == clean ]]; then
 	docker stop mongodb
         docker rm mongodb
 	sudo rm -r ./data/db
-	mkdir ./data/db/
+	mkdir -p ./data/db/
 	touch ./data/db/.dirkeeper
 	echo Done!
         exit
