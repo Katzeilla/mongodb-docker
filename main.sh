@@ -20,7 +20,7 @@ show_usage()
         echo
 	echo "network <network_name>		       Connect to a network"
 	echo "debug                                        Start in to bash"
-	echo "clean     Stop and remove container, then delete all database"
+	echo "purge     Stop and remove container, then delete all database"
 	echo "shell                   Attach shell of the running container"
 	echo "build	         		Build image from Dockerfile"
 	echo "--help, -h ,help                            Show this message"
@@ -49,12 +49,12 @@ elif [[ "$1" == shell ]]; then
  	docker exec -it mongodb bash
         exit
 
-elif [[ "$1" == clean ]]; then
+elif [[ "$1" == purge ]]; then
         echo "$date" WARNING!! This will delete all database! 
 	docker stop mongodb
         docker rm mongodb
 	sudo rm -r ./data/db
-	mkdir -p ./data/db/
+	mkdir ./data/db/
 	touch ./data/db/.dirkeeper
 	echo Done!
         exit
@@ -66,7 +66,7 @@ fi
 
 
 docker run -it \
-  --mount type=bind,source="$dir"/data/db,target=/data/db/ \
+  --mount type=bind,source="$dir"/data/,target=/data/ \
   --name mongodb \
   $flag \
   mongodb:latest
