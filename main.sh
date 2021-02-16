@@ -1,10 +1,5 @@
 #! /bin/bash
 
-dir="$(pwd)"
-
-date="[$(date)]"
-
-
 stop_mongodb()
 {
     docker stop mongodb
@@ -31,26 +26,26 @@ show_usage()
 if [[ "$1" == network ]]; then
     if [[ "$2" != "" ]]; then
         flag="--network $2"
-        echo Connect to "$2"
+        echo "Connect to $2"
     fi
 
 
 elif [[ "$1" == debug ]]; then
         flag='--entrypoint /bin/bash'
-		echo "$date" 'Debug Mode'
+	echo 'Debug Mode'
 
 elif [[ "$1" == build ]]; then
-        echo "$date" Start build mongodb
+        echo Start build mongodb
         docker build . --tag mongodb:latest
 	exit
 
 elif [[ "$1" == shell ]]; then
-        echo "$date" Attach bash in mongodb
+        echo Attach bash in mongodb
  	docker exec -it mongodb bash
         exit
 
 elif [[ "$1" == purge ]]; then
-        echo "$date" WARNING!! This will delete all database! 
+        echo WARNING!! This will delete all database!
 	docker stop mongodb
         docker rm mongodb
 	sudo rm -r ./data/db
@@ -66,7 +61,7 @@ fi
 
 
 docker run -it \
-  --mount type=bind,source="$dir"/data/,target=/data/ \
+  --mount type=bind,source="$(pwd)"/data/,target=/data/ \
   --name mongodb \
   $flag \
   mongodb:latest
