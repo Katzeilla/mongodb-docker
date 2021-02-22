@@ -2,6 +2,9 @@
 
 # Generate a random password for admin if $MONGODB_ADMIN_PASS not set
 
+# shellcheck disable=SC2002
+# `cat` makes the code much easier to read
+
 if [[ "$ADMIN_PASSWORD" == "" ]]; then 
 	ADMIN_PASSWORD=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 fi
