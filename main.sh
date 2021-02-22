@@ -59,7 +59,8 @@ elif [[ "$1" == --help ]] || [[ "$1" == -h ]] || [[ "$1" == help ]]; then
         exit
 fi
 
-
+# shellcheck disable=SC2086
+# $flag can't be double quoted
 docker run -it \
   --mount type=bind,source="$(pwd)"/data/,target=/data/ \
   --name mongodb \
